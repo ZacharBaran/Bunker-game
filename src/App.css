@@ -1,0 +1,409 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 15px;
+    margin: 0 auto;
+    max-width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+}
+
+h1,
+h2 {
+    text-align: center;
+}
+
+/* Панель керування */
+.controls {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+}
+
+.controls-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-weight: 600;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #ced4da;
+    border-radius: 8px;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background-color: #0d6efd;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition:
+        background-color 0.2s,
+        transform 0.1s;
+}
+
+.btn-secondary {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #0d6efd;
+    background-color: #000000;
+    border: 2px solid #0d6efd;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background-color: #0d6efd;
+    color: white;
+}
+
+/* СІТКА КАРТОК (Ключове виправлення накладання) */
+#cardsContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    align-items: start;
+    /* Не дозволяє карткам розтягувати одна одну */
+}
+
+/* Картка гравця */
+.player-card {
+    border: 2px solid #343a40;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(255, 249, 249, 0.05);
+    transition:
+        background-color 0.2s,
+        transform 0.2s;
+    height: fit-content;
+    /* Автономна висота для кожної картки */
+    overflow: hidden;
+}
+
+.player-card:hover {
+    transform: translateY(-2px);
+}
+
+.card-details {
+    display: none;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #adb5bd;
+}
+
+.card-details.visible {
+    display: block;
+}
+
+.player-title {
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+/* Кругла підказка (!) */
+.info-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #3b82f6;
+    background: linear-gradient(135deg, #60a5fa, #2563eb);
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    margin-left: 6px;
+}
+
+/* Налаштування для ПК та планшетів */
+@media (min-width: 768px) {
+    body {
+        max-width: 1200px;
+        padding: 30px;
+    }
+
+    .controls-group {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    input[type="number"] {
+        width: 120px;
+    }
+
+    .btn-primary {
+        width: auto;
+        padding: 12px 30px;
+    }
+
+    #cardsContainer {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 20px;
+        align-items: start;
+    }
+}
+
+/* Стилі для зведеної таблиці */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    /* Дозволяє скролити таблицю вбік на мобільному */
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+}
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+    /* Забезпечує читабельність колонок */
+    font-size: 14px;
+}
+
+.summary-table th,
+.summary-table td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.summary-table th {
+    background-color: #212529;
+    color: #ffffff;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+}
+
+.summary-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+    /* Чередування кольорів рядків */
+}
+
+.summary-table tbody tr:hover {
+    background-color: #e7f1ff;
+    /* Підсвічування рядка при наведенні */
+}
+/* Стилі Зведеної Таблиці */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 30px;
+}
+
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+  font-size: 14px;
+}
+
+.summary-table th, .summary-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #e9ecef;
+  text-align: left;
+}
+
+.summary-table th {
+  background-color: #212529;
+  color: #ffffff;
+}
+
+/* Стани комірок таблиці */
+.cell-closed {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  font-style: italic;
+  font-size: 0.88em;
+}
+
+.cell-open {
+  background-color: #fff3cd; /* Підсвічується коли Ведучий відкрив її */
+  color: #212529;
+}
+
+/* Кнопка Панелі Ведучого */
+.btn-host {
+  background: linear-gradient(135deg, #ffc107, #ff9800);
+  color: #000;
+  border: none;
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* Модальне вікно Ведучого */
+.host-modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000; padding: 15px;
+}
+
+.host-modal-content {
+  background: white; border-radius: 12px;
+  width: 100%; max-width: 500px; max-height: 90vh;
+  overflow-y: auto; padding: 20px;
+}
+
+.host-modal-header {
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid #ddd; padding-bottom: 10px;
+}
+
+.host-close-btn { font-size: 28px; font-weight: bold; cursor: pointer; }
+.host-select { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; margin-top: 5px; }
+
+.host-buttons-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px;
+}
+
+.btn-trait {
+  background: #f8f9fa; border: 1px solid #ced4da; padding: 10px;
+  border-radius: 6px; cursor: pointer; font-size: 13px; text-align: left;
+}
+
+.btn-trait.active {
+  background: #d1e7dd; border-color: #0f5132; color: #0f5132; font-weight: bold;
+}
+
+.btn-action {
+  padding: 10px 15px; border-radius: 6px; border: none; font-weight: bold; cursor: pointer; width: 100%;
+}
+.btn-all { background: #0d6efd; color: white; }
+.btn-danger { background: #dc3545; color: white; margin-top: 5px; }
+/* Стилі Зведеної Таблиці */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 30px;
+}
+
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+  font-size: 14px;
+}
+
+.summary-table th, .summary-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #e9ecef;
+  text-align: left;
+}
+
+.summary-table th {
+  background-color: #212529;
+  color: #ffffff;
+}
+
+/* Стани комірок таблиці */
+.cell-closed {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  font-style: italic;
+  font-size: 0.88em;
+}
+
+.cell-open {
+  background-color: #fff3cd; /* Підсвічується коли Ведучий відкрив її */
+  color: #212529;
+}
+
+/* Кнопка Панелі Ведучого */
+.btn-host {
+  background: linear-gradient(135deg, #ffc107, #ff9800);
+  color: #000;
+  border: none;
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* Модальне вікно Ведучого */
+.host-modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000; padding: 15px;
+}
+
+.host-modal-content {
+  background: rgb(39, 35, 35); border-radius: 12px;
+  width: 100%; max-width: 500px; max-height: 90vh;
+  overflow-y: auto; padding: 20px;
+}
+
+.host-modal-header {
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid #222020; padding-bottom: 10px;
+}
+
+.host-close-btn { font-size: 28px; font-weight: bold; cursor: pointer; }
+.host-select { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; margin-top: 5px; }
+
+.host-buttons-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px;
+}
+
+.btn-trait {
+  background: #cccccc; border: 1px solid #6cb5fd; padding: 10px;
+  border-radius: 6px; cursor: pointer; font-size: 13px; text-align: left;
+}
+
+.btn-trait.active {
+  background: #d1e7dd; border-color: #0f5132; color: #0f5132; font-weight: bold;
+}
+
+.btn-action {
+  padding: 10px 15px; border-radius: 6px; border: none; font-weight: bold; cursor: pointer; width: 100%;
+}
+.btn-all { background: #0d6efd; color: white; }
+.btn-danger { background: #dc3545; color: white; margin-top: 5px; }
